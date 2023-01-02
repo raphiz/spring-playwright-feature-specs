@@ -21,7 +21,7 @@ class PlaywrightExtension : BeforeAllCallback, BeforeEachCallback,
     private fun launchBrowser() {
         playwright = Playwright.create()
         browser = playwright!!.chromium().launch(
-            BrowserType.LaunchOptions()
+            BrowserType.LaunchOptions().setHeadless(true)
         )
     }
 
