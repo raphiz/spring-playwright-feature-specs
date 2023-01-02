@@ -8,12 +8,15 @@ plugins {
     id("io.github.gradle-nexus.publish-plugin") version "1.1.0"
     id("org.springframework.boot") version "3.0.1" apply (false)
     id("io.spring.dependency-management") version "1.1.0"
+    id("com.palantir.git-version") version "0.15.0"
     kotlin("jvm") version "1.7.22"
 }
 
 group = "io.github.raphiz"
 description = "Start instantly with readable and reliable feature specs for spring projects"
-version = "0.0.1-SNAPSHOT" // TODO: GET FROM GIT TAG
+
+val gitVersion: groovy.lang.Closure<String> by extra
+version = gitVersion()
 
 repositories {
     mavenCentral()
