@@ -8,7 +8,6 @@ plugins {
 
 group = "io.github.raphiz"
 version = "0.0.1-SNAPSHOT"
-java.sourceCompatibility = JavaVersion.VERSION_17
 
 repositories {
     mavenCentral()
@@ -20,10 +19,25 @@ dependencies {
     testImplementation("org.springframework.boot:spring-boot-starter-web")
 }
 
+
+val javaVersion = JavaLanguageVersion.of("17")
+
+java {
+    toolchain {
+        languageVersion.set(javaVersion)
+    }
+}
+
+kotlin {
+    jvmToolchain {
+        languageVersion.set(javaVersion)
+    }
+}
+
 tasks.withType<KotlinCompile> {
     kotlinOptions {
+        jvmTarget = javaVersion.toString()
         freeCompilerArgs = listOf("-Xjsr305=strict")
-        jvmTarget = "17"
     }
 }
 
