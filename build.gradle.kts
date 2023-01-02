@@ -1,14 +1,19 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+import java.util.*
 
 plugins {
     `java-library`
+    `maven-publish`
+    signing
+    id("io.github.gradle-nexus.publish-plugin") version "1.1.0"
     id("org.springframework.boot") version "3.0.1" apply (false)
     id("io.spring.dependency-management") version "1.1.0"
     kotlin("jvm") version "1.7.22"
 }
 
 group = "io.github.raphiz"
-version = "0.0.1-SNAPSHOT"
+description = "Start instantly with readable and reliable feature specs for spring projects"
+version = "0.0.1-SNAPSHOT" // TODO: GET FROM GIT TAG
 
 repositories {
     mavenCentral()
@@ -51,3 +56,67 @@ tasks.withType<KotlinCompile> {
 tasks.withType<Test> {
     useJUnitPlatform()
 }
+
+nexusPublishing {
+    repositories {
+        sonatype {
+            nexusUrl.set(uri("https://s01.oss.sonatype.org/service/local/"))
+            snapshotRepositoryUrl.set(uri("https://s01.oss.sonatype.org/content/repositories/snapshots/"))
+            username.set(project.findProperty("ossrhUsername") as String?)
+            password.set(project.findProperty("ossrhPassword") as String?)
+        }
+    }
+}
+
+
+java {
+    withJavadocJar()
+    withSourcesJar()
+}
+
+publishing {
+    publications {
+        register("mavenJava", MavenPublication::class) {
+            from(components["java"])
+            pom {
+                name.set("${project.group}:${project.name}")
+                description.set(project.description)
+                url.set("https://www.github.com/raphiz/spring-playwright-feature-specs")
+
+                scm {
+                    connection.set("scm:git:git://github.com/raphiz/spring-playwright-feature-specs.git")
+                    developerConnection.set("scm:git:ssh://github.com:raphiz/spring-playwright-feature-specs.git")
+                    url.set("https://www.github.com/raphiz/spring-playwright-feature-specs")
+                }
+
+                licenses {
+                    license {
+                        name.set("MIT License")
+                        url.set("https://opensource.org/licenses/mit-license")
+                    }
+                }
+
+                developers {
+                    developer {
+                        id.set("raphiz")
+                        name.set("Raphael Zimmermann")
+                        email.set("oss@raphael.li")
+                    }
+                }
+            }
+        }
+    }
+}
+
+signing {
+    if (project.hasProperty("signingKey")) {
+        val signingKey: String by project
+        val signingPassword: String by project
+        useInMemoryPgpKeys(signingKey.base64Decode(), signingPassword)
+    } else {
+        useGpgCmd()
+    }
+    sign(publishing.publications)
+}
+
+fun String.base64Decode() = String(Base64.getDecoder().decode(this)).trim()
