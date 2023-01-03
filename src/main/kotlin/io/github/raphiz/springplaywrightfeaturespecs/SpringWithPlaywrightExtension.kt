@@ -8,7 +8,7 @@ import org.junit.jupiter.api.extension.BeforeEachCallback
 import org.junit.jupiter.api.extension.ExtensionContext
 import org.springframework.test.context.junit.jupiter.SpringExtension
 
-class PlaywrightExtension : BeforeAllCallback, BeforeEachCallback,
+class SpringWithPlaywrightExtension : BeforeAllCallback, BeforeEachCallback,
     ExtensionContext.Store.CloseableResource {
     override fun beforeAll(context: ExtensionContext) {
         if (!started) {
@@ -34,7 +34,7 @@ class PlaywrightExtension : BeforeAllCallback, BeforeEachCallback,
 
     private fun registerShutdownHook(context: ExtensionContext) {
         context.root.getStore(ExtensionContext.Namespace.GLOBAL)
-            .put(PlaywrightExtension::class.qualifiedName, this)
+            .put(SpringWithPlaywrightExtension::class.qualifiedName, this)
     }
 
     override fun close() {
