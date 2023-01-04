@@ -55,12 +55,12 @@ When using Gradle, I highly recommend to create a separate [test suite](https://
 
 **Gradle Kotlin DSL**
 ```kotlin
-testImplementation("io.github.raphiz:spring-playwright-feature-specs:v0.1.0")
+testImplementation("io.github.raphiz:spring-playwright-feature-specs:0.2.0")
 ```
 
 **Gradle**
 ```groovy
-testImplementation 'io.github.raphiz:spring-playwright-feature-specs:v0.1.0'
+testImplementation 'io.github.raphiz:spring-playwright-feature-specs:0.2.0'
 ```
 
 
@@ -71,7 +71,7 @@ testImplementation 'io.github.raphiz:spring-playwright-feature-specs:v0.1.0'
 <dependency>
   <groupId>io.github.raphiz</groupId>
   <artifactId>spring-playwright-feature-specs</artifactId>
-  <version>v0.1.0</version>
+  <version>0.2.0</version>
 </dependency>
 ```
 
