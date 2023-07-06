@@ -9,7 +9,7 @@ plugins {
     id("org.springframework.boot") version "3.1.1" apply (false)
     id("io.spring.dependency-management") version "1.1.0"
     id("com.palantir.git-version") version "3.0.0"
-    kotlin("jvm") version "1.8.22"
+    kotlin("jvm") version "1.9.0"
 }
 
 group = "io.github.raphiz"
