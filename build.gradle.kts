@@ -33,7 +33,7 @@ dependencyManagement {
 }
 
 dependencies {
-    api("com.microsoft.playwright:playwright:1.39.0")
+    api("com.microsoft.playwright:playwright:1.40.0")
     implementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("org.springframework.boot:spring-boot-starter-web")
 }
