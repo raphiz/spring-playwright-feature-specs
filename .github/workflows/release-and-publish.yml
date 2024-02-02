@@ -31,7 +31,7 @@ jobs:
           draft: false
           prerelease: false
       - name: Publish package to OSSRH
-        uses: gradle/gradle-build-action@v2
+        uses: gradle/gradle-build-action@v3
         with:
           arguments: publishToSonatype printVersion
         env:
